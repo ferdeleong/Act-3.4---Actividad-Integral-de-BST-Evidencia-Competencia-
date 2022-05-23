@@ -11,9 +11,7 @@ Registro::Registro() {
   RazonDeFalla = "";
 }
 
-Registro::Registro(std::string MES, std::string DIA, std::string HORA,
-                   std::string MINUTOS, std::string SEGUNDOS, std::string IP,
-                   std::string PUERTO, std::string RAZON_DE_FALLA) {
+Registro::Registro(std::string MES, std::string DIA, std::string HORA, std::string MINUTOS, std::string SEGUNDOS, std::string IP, std::string PUERTO, std::string RAZON_DE_FALLA) {
   mes = MES;
   dia = DIA;
   hora = HORA;
@@ -37,12 +35,29 @@ Registro::Registro(std::string MES, std::string DIA, std::string HORA,
   dateStruct.tm_year = 2022 - 1900; // Asumimos el año 2022
   // Obtener el Unix timestamp a partir del struct tm anterior
   // Numero de segundos desde el 1 de enero de 1970
-  dateTime = mktime(&dateStruct);
+  ipValue = mktime(&dateStruct);
+
+  // Convertir IP
+  int posInit = 0;
+  int posFound = 0;
+  std::string splitted;
+  std::vector<std::string> results;   
+  while(posFound >= 0) {
+    posFound = ip.find(".", posInit);
+    splitted = ip.substr(posInit, posFound - posInit);
+    posInit = posFound + 1;
+    results.push_back(splitted);
+  }
+  int partA = std::stoi(results[0]);
+  int partB = std::stoi(results[1]);
+  int partC = std::stoi(results[2]);
+  int partD = std::stoi(results[3]);
+  ipValue = partA*(pow(256,3)) + partB*(pow(256,2)) + partC*(pow(256,1)) + partD; 
 }
 
-time_t Registro::getDate() {
+std::string Registro::getIP() {
   // std::cout<<date;   //lo imprime 2 veces si se descomenta
-  return dateTime;
+  return ip;
 }
 
 std::string Registro::getAll() {
@@ -50,25 +65,27 @@ std::string Registro::getAll() {
          ip + ":" + puerto + " " + RazonDeFalla;
 }
 bool Registro::operator==(const Registro &other) {
-  return this->dateTime == other.dateTime;
+  return this->ipValue == other.ipValue;
 }
 
 bool Registro::operator!=(const Registro &other) {
-  return this->dateTime != other.dateTime;
+  return this->ipValue != other.ipValue;
 }
 
 bool Registro::operator>(const Registro &other) {
-  return this->dateTime > other.dateTime;
+  return this->ipValue > other.ipValue;
 }
 
 bool Registro::operator<(const Registro &other) {
-  return this->dateTime < other.dateTime;
+  return this->ipValue < other.ipValue;
 }
 
 bool Registro::operator<=(const Registro &other) {
-  return this->dateTime <= other.dateTime;
+  return this->ipValue <= other.ipValue;
 }
 
 bool Registro::operator>=(const Registro &other) {
-  return this->dateTime >= other.dateTime;
+  return this->ipValue >= other.ipValue;
 }
+
+

@@ -4,6 +4,7 @@
 #include <ctime>
 #include <iostream>
 #include <vector>
+#include <math.h>
 
 class Registro {
 public:
@@ -11,10 +12,11 @@ public:
   Registro();
   // El constructor que le define los atributos del objeto.
   Registro(std::string MES, std::string DIA, std::string HORA,
-           std::string MINUTOS, std::string SEGUNDOS, std::string IP,
-           std::string PUERTO, std::string RAZON_DE_FALLA);
-  time_t getDate();
+           std::string MINUTOS, std::string SEGUNDOS, std::string IP, std::string PUERTO, std::string RAZON_DE_FALLA);
+  
+  std::string getIP();
   std::string getAll();
+  static std::string intAsIp(unsigned int);
   bool operator==(const Registro &);
   bool operator!=(const Registro &);
   bool operator>(const Registro &);
@@ -30,6 +32,11 @@ private:
   struct tm dateStruct;
   // Unix timestamp (segundos transcurridos desde 00:00 hrs, Jan 1, 1970 UTC)
   time_t dateTime;
+  // Ip en decimal 
+  unsigned int ipValue;
 };
+
+
+
 
 #endif // _REGISTRO_H_
