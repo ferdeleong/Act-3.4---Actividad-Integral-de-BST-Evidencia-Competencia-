@@ -7,9 +7,10 @@
 #include <string>
 #include <vector>
 #include <sstream>
+#include <algorithm>
 #include "Registro.h"
 #include "MaxHeap.h"
-//#include "DLinkedList.h"
+#include "Pares.h"
 
 class Bitacora {
 
@@ -17,6 +18,7 @@ class Bitacora {
     std::vector<Registro> listaRegistros;
 
     void heapify(int, int);
+    void createMaxHeap();
 
   public:
     Bitacora();

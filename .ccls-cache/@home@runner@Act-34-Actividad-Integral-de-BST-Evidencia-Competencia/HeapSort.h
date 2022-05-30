@@ -7,6 +7,8 @@ using namespace std;
 // To heapify a subtree rooted with node i
 // which is an index in arr[].
 // n is size of heap
+//Complejidad: O(Logn)
+
 void heapify(int arr[], int n, int i) {
 
 // Initialize largest as root
@@ -38,6 +40,8 @@ void heapify(int arr[], int n, int i) {
 }
 
 // Main function to do heap sort
+//Complejidad: O(nLogn)
+
 void heapSort(int arr[], int n) {
 	// Build heap (rearrange array)
 	for (int i = n / 2 - 1; i >= 0; i--)

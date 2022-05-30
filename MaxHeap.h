@@ -1,3 +1,5 @@
+
+
 #ifndef __MAXHEAP_H_
 #define __MAXHEAP_H_
 
@@ -33,7 +35,7 @@ template <class T> MaxHeap<T>::MaxHeap(int capacity) {
   std::cout << "--->Creando un MaxHeap: " << this << std::endl;
   actualSize = 0;
   maxSize = capacity;
-  data.resize(maxSize);
+  data = std::vector<T>(maxSize);
 }
 
 template <class T> MaxHeap<T>::~MaxHeap() {
@@ -73,9 +75,6 @@ Salida: Nada
 Complejidad: O(nlogn)
 */
 template <class T> void MaxHeap<T>::push(T key) {
-  if (actualSize == maxSize) {
-    throw std::out_of_range("Overflow: no se puede insertar la llave: " + key);
-  }
   // Insertamos la nueva llave al final del vector
   int i = actualSize;
   data[i] = key;
@@ -101,8 +100,10 @@ template <class T> void MaxHeap<T>::pop() {
   data[i] = data[--actualSize];
   while (true) {
     j = i;
-    if (data[left(i)] > data[i]) j = left(i);
-    if (data[right(i)] > data[j]) j = right(i);
+    if (data[left(i)] > data[i])
+      j = left(i);
+    if (data[right(i)] > data[j])
+      j = right(i);
     if (data[j] > data[i]) {
       std::swap(data[i], data[j]);
       i = j;
